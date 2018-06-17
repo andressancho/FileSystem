@@ -28,26 +28,51 @@ public class File_System {
                 String comando = reader.next().toLowerCase();
                 switch (comando){
                     case "fle":
-                        
-                        System.out.println("Ingrese el nombre el archivo:");
-                        String nombre = reader.next();
+                        //ingreso de datos
+                        System.out.println("Ingrese el nombre del archivo:");
+                        String nombreA = reader.next();
                         System.out.println("Ingrese la extension del archivo:");
                         String tipo = reader.next();
                         System.out.println("Ingrese el contenido:");
                         String contenido = reader.next();
                         
-                        
+                        //creación de Archivo
                         int posicion = rutaActual.size();
-                        Archivo nuevo = new Archivo(nombre,idArchivos,tipo,contenido,new Date());
-                        rutaActual.get(posicion-1).addArchivo(nuevo);
+                        Archivo nuevoA = new Archivo(nombreA,idArchivos,tipo,contenido,new Date());
+                        
+                        
+                        int tamNuevo = nuevoA.getTamaño();
+                        
+                        // falta manejo de memoria
+                        
+                        
+                        rutaActual.get(posicion-1).addArchivo(nuevoA);
                         idArchivos++;
-                        nuevo.getTamaño();
+                        
+                        break;
                         
                         
                             
+                    case "mkdir":
+                        System.out.println("Ingrese el nombre del directorio:");
+                        String nombreD = reader.next();
+                        posicion = rutaActual.size();
+                        Directorio nuevoD = new Directorio(nombreD);
+                        rutaActual.get(posicion-1).addDirectorio(nuevoD);
+                        break
+                                
+                                
+                                
                         ;
-                    case "mkdir": ;
-                    case "chdir": ; 
+                        
+                        
+                        
+                    case "chdir":
+                        
+                        
+                        
+                        
+                        ; 
                     case "ldir": ;
                     case "mfle": ;
                     case "ppt": ;
@@ -57,5 +82,12 @@ public class File_System {
         }
         
     }
+//    public ArrayList<Integer> EspaciosLibres(Disco disco,int tama){
+//        int[][] matriz =disco.getEspacios();
+//        
+//        while(matriz.)
+//        
+//        return 
+//    }
     
 }

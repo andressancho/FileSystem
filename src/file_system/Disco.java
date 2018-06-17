@@ -50,6 +50,15 @@ public class Disco {
         this.size = tamaño;
     }
 
+    public int[][] getEspacios() {
+        return espacios;
+    }
+
+    public void setEspacios(int[][] espacios) {
+        this.espacios = espacios;
+    }
+    
+
   
     
     
