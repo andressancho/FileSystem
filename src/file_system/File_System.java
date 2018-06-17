@@ -1,6 +1,9 @@
 
 package file_system;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +14,7 @@ public class File_System {
         static Disco memoria;
 
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         rutaActual= new ArrayList();
         Directorio folder= new Directorio("nuevo");
@@ -43,7 +46,14 @@ public class File_System {
                     case "ldir":
                         listDir();
                         break;
-                    case "mfle": ;
+                    case "mfle":
+                        BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
+                        System.out.println("Ingrese el nombre del archivo:");
+                        String nombre_archivo = reader1.readLine();
+                        reader = new Scanner(System.in);
+                        System.out.println("Ingrese el nuevo contenido:");
+                        String contenido = reader1.readLine();
+                        modifyFile(nombre_archivo, contenido);
                     case "ppt": ;
                     case "view": ; 
                 }
@@ -53,7 +63,6 @@ public class File_System {
     }
     
     public static void listDir(){
-        imprimirRuta();
         if (!rutaActual.isEmpty()){
             ArrayList<Estructura> actual= rutaActual.get(rutaActual.size()-1).getLista();
         
@@ -75,4 +84,34 @@ public class File_System {
         System.out.print(ruta);
     }
     
+    public static void modifyFile(String nombre, String contenido){
+        ArrayList<Estructura> actual;
+        boolean existe_archivo = false;
+        
+        if(!rutaActual.isEmpty()){
+            actual= rutaActual.get(rutaActual.size()-1).getLista();
+        }
+        else{
+            actual= memoria.getEstructuras();
+        }
+        
+        for(Estructura e: actual){
+            if(e instanceof Archivo){
+               if(e.nombre.equals(nombre)){
+                    existe_archivo = true;
+                    Archivo a = (Archivo) e;
+                    a.setContenido(contenido);
+                }
+            }
+           
+        }
+        
+        if(!existe_archivo){
+            System.out.println("No existe un archivo con ese nombre");
+        }
+        else{
+            System.out.println("Archivo modificado con exito");
+        }
+        imprimirRuta();
+    }  
 }

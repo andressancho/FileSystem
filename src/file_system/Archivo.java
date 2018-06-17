@@ -37,9 +37,6 @@ public class Archivo extends Estructura{
         this.nombre = nombre;
     }
     
-
-    
-
     public int getID() {
         return ID;
     }

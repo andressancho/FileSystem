@@ -57,6 +57,10 @@ public class Disco {
     public void setEspacios(int[] espacios) {
         this.espacios = espacios;
     }
+
+    public ArrayList<Estructura> getEstructuras() {
+        return estructuras;
+    }
     
     
     
