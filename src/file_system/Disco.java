@@ -23,6 +23,7 @@ public class Disco {
         this.cantidad = cantidad;
         this.size = tamaño;
         this.espacios = new int[cantidad];
+        estructuras = new ArrayList();
     }
 
     public String getRoot() {
