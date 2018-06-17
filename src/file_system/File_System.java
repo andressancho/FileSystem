@@ -63,6 +63,13 @@ public class File_System {
                         reader = new Scanner(System.in);
                         viewFile(nombre_archivo_2);
                         break;
+                    case "rem":
+                        BufferedReader reader3 = new BufferedReader(new InputStreamReader(System.in));
+                        System.out.println("Ingrese el nombre del archivo:");
+                        String nombre_archivo_3 = reader3.readLine();
+                        reader = new Scanner(System.in);
+                        removeFile(nombre_archivo_3);
+                        break;
                 }
             }
         }
@@ -150,6 +157,44 @@ public class File_System {
             }
             else{
                 System.out.println("Contenido del archivo: " + contenido);
+            }
+            imprimirRuta();
+    }
+    
+    public static void removeFile(String nombre){
+        ArrayList<Estructura> actual;
+        Estructura temporal = null;
+            boolean existe_archivo = false;
+
+            if(!rutaActual.isEmpty()){
+                actual= rutaActual.get(rutaActual.size()-1).getLista();
+            }
+            else{
+                actual= memoria.getEstructuras();
+            }
+
+            for(Estructura e: actual){
+                if(e instanceof Archivo){
+                   if(e.nombre.equals(nombre)){
+                        existe_archivo = true;
+                        temporal = e;
+                    }
+                }
+                //es un directorio
+                else{
+                    if(e.nombre.equals(nombre)){
+                        existe_archivo = true;
+                        temporal = e;
+                    }
+                }
+            }
+            actual.remove(temporal);
+            
+            if(!existe_archivo){
+                System.out.println("No existe un archivo con ese nombre");
+            }
+            else{
+                System.out.println("Archivo eliminado");
             }
             imprimirRuta();
     }
