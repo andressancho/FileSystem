@@ -23,7 +23,7 @@ public class File_System {
         folder.getLista().add(new Directorio("Redes"));
         folder.getLista().add(new Archivo("Asignacion 1.py",1,"codigo",200,"",null,null));
         folder.getLista().add(new Archivo("Asignacion 2.py",1,"codigo",200,"",null,null));
-        folder.getLista().add(new Archivo("Asignacion 2.py",1,"codigo",200,"",null,null));
+        folder.getLista().add(new Archivo("Asignacion 3.py",1,"codigo",200,"",null,null));
         
         rutaActual.add(folder);
         
@@ -54,8 +54,15 @@ public class File_System {
                         System.out.println("Ingrese el nuevo contenido:");
                         String contenido = reader1.readLine();
                         modifyFile(nombre_archivo, contenido);
+                        break;
                     case "ppt": ;
-                    case "view": ; 
+                    case "view": 
+                        BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
+                        System.out.println("Ingrese el nombre del archivo:");
+                        String nombre_archivo_2 = reader2.readLine();
+                        reader = new Scanner(System.in);
+                        viewFile(nombre_archivo_2);
+                        break;
                 }
             }
         }
@@ -113,5 +120,37 @@ public class File_System {
             System.out.println("Archivo modificado con exito");
         }
         imprimirRuta();
-    }  
+    }
+    
+    public static void viewFile(String nombre){
+        String contenido = "No tiene contenido";
+        ArrayList<Estructura> actual;
+            boolean existe_archivo = false;
+
+            if(!rutaActual.isEmpty()){
+                actual= rutaActual.get(rutaActual.size()-1).getLista();
+            }
+            else{
+                actual= memoria.getEstructuras();
+            }
+
+            for(Estructura e: actual){
+                if(e instanceof Archivo){
+                   if(e.nombre.equals(nombre)){
+                        existe_archivo = true;
+                        Archivo a = (Archivo) e;
+                        contenido = a.getContenido();
+                    }
+                }
+
+            }
+
+            if(!existe_archivo){
+                System.out.println("No existe un archivo con ese nombre");
+            }
+            else{
+                System.out.println("Contenido del archivo: " + contenido);
+            }
+            imprimirRuta();
+    }
 }
