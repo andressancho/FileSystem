@@ -5,6 +5,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -12,30 +13,37 @@ public class File_System {
     
         static ArrayList<Directorio> rutaActual;
         static Disco memoria;
+        static int tabs;
 
     
     public static void main(String[] args) throws IOException {
         
         rutaActual= new ArrayList();
         Directorio folder= new Directorio("nuevo");
+        Directorio d=new Directorio("Reque");
+        d.getLista().add(new Archivo("examen.py",1,"py",200,"",new Date(),new Date()));
+        folder.getLista().add(d);
         folder.getLista().add(new Directorio("Sistemas Operativos"));
         folder.getLista().add(new Directorio("Aseguramiento"));
         folder.getLista().add(new Directorio("Redes"));
-        folder.getLista().add(new Archivo("Asignacion 1.py",1,"codigo",200,"",null,null));
-        folder.getLista().add(new Archivo("Asignacion 2.py",1,"codigo",200,"",null,null));
-        folder.getLista().add(new Archivo("Asignacion 2.py",1,"codigo",200,"",null,null));
-        
+        folder.getLista().add(new Archivo("Asignacion 1.py",1,"py",200,"",new Date(),new Date()));
+        folder.getLista().add(new Archivo("Asignacion 2.py",1,"py",200,"",new Date(),new Date()));
+        folder.getLista().add(new Archivo("Asignacion 2.py",1,"py",200,"",new Date(),new Date()));
+       
         rutaActual.add(folder);
+        
         
         System.out.println("File System");
         System.out.println("Use el comando \"crt\"");
         Scanner reader = new Scanner(System.in);
+        BufferedReader reader1;
         if ("crt".equals(reader.next().toLowerCase())){
             System.out.println("Indique el tamaño de sector:");
             int tam = reader.nextInt();
             System.out.println("Indique la cantidad de sectores:");
             int cant = reader.nextInt();
             memoria = new Disco("C",cant,tam);
+            memoria.getEstructuras().add(folder);
             imprimirRuta();
             while(true){
                 String comando = reader.next().toLowerCase();
@@ -47,15 +55,23 @@ public class File_System {
                         listDir();
                         break;
                     case "mfle":
-                        BufferedReader reader1 = new BufferedReader(new InputStreamReader(System.in));
+                        reader1 = new BufferedReader(new InputStreamReader(System.in));
                         System.out.println("Ingrese el nombre del archivo:");
                         String nombre_archivo = reader1.readLine();
                         reader = new Scanner(System.in);
                         System.out.println("Ingrese el nuevo contenido:");
                         String contenido = reader1.readLine();
                         modifyFile(nombre_archivo, contenido);
-                    case "ppt": ;
+                    case "ppt":
+                        reader1 = new BufferedReader(new InputStreamReader(System.in));
+                        System.out.println("Ingrese el nombre del archivo:");
+                        String nombre = reader1.readLine();
+                        ppt(nombre);
                     case "view": ; 
+                    
+                    case "tree":
+                        tabs=0;
+                        tree(memoria.getEstructuras());
                 }
             }
         }
@@ -63,12 +79,16 @@ public class File_System {
     }
     
     public static void listDir(){
-        if (!rutaActual.isEmpty()){
-            ArrayList<Estructura> actual= rutaActual.get(rutaActual.size()-1).getLista();
+        ArrayList<Estructura> actual;
         
-            for(Estructura e: actual){
+        if (!rutaActual.isEmpty()){
+            actual= rutaActual.get(rutaActual.size()-1).getLista();
+        }
+        else{
+            actual= memoria.getEstructuras();
+        }
+        for(Estructura e: actual){
                 System.out.println(e.nombre);
-            }
         }
         imprimirRuta();
         
@@ -113,5 +133,56 @@ public class File_System {
             System.out.println("Archivo modificado con exito");
         }
         imprimirRuta();
-    }  
+    }
+    public static void ppt(String nombre){
+        ArrayList<Estructura> actual;
+        boolean existe_archivo = false;
+        
+        if(!rutaActual.isEmpty()){
+            actual= rutaActual.get(rutaActual.size()-1).getLista();
+        }
+        else{
+            actual= memoria.getEstructuras();
+        }
+        
+        for(Estructura e: actual){
+            if(e instanceof Archivo){
+               if(e.nombre.equals(nombre)){
+                    existe_archivo = true;
+                    Archivo a = (Archivo) e;
+                    System.out.println("Nombre: " + a.nombre);
+                    System.out.println("Extensión: " + a.getTipo());
+                    System.out.println("Fecha de creación: " + a.getFecha_creacion().toString());
+                    System.out.println("Fecha de modificación: " + a.getFecha_Ultima_Modificacion().toString());
+                    System.out.println("Nombre: " + Integer.toString(a.getTamaño()));
+                }
+            }
+           
+        }
+        
+        if(!existe_archivo){
+            System.out.println("No existe un archivo con ese nombre");
+        }
+
+        imprimirRuta();
+    }
+    public static void tree(ArrayList<Estructura> estructuras){
+        
+        
+        for(Estructura e:estructuras){
+            for(int x=0;x<tabs;x++){
+                System.out.print("\t");
+            }
+            System.out.println(e.nombre);
+            if(e instanceof Directorio){
+                tabs+=1;
+                
+                tree(((Directorio) e).getLista());
+            }
+            
+        }
+        tabs-=1;
+        
+        
+    }
 }
