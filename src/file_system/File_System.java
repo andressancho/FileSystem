@@ -48,7 +48,7 @@ public class File_System {
                         
                         rutaActual.get(posicion-1).addArchivo(nuevoA);
                         idArchivos++;
-                        
+                        System.out.println("Archivo creado");
                         break;
                         
                         
@@ -59,6 +59,8 @@ public class File_System {
                         posicion = rutaActual.size();
                         Directorio nuevoD = new Directorio(nombreD);
                         rutaActual.get(posicion-1).addDirectorio(nuevoD);
+                        
+                        System.out.println("Directorio creado");
                         break
                                 
                                 

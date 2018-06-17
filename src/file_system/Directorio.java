@@ -27,6 +27,9 @@ public class Directorio extends Estructura {
         this.lista.add(a);
     }
     
+    public void addDirectorio(Directorio d){
+        this.lista.add(d);
+    }
     
     
 }
