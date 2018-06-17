@@ -14,5 +14,15 @@ public class Directorio extends Estructura {
         super.nombre = nombre;
         lista = new ArrayList<Estructura>();
     }
+
+    public ArrayList<Estructura> getLista() {
+        return lista;
+    }
+
+    public void setLista(ArrayList<Estructura> lista) {
+        this.lista = lista;
+    }
+    
+    
     
 }
