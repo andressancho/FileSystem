@@ -2,6 +2,7 @@
 package file_system;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 
@@ -9,7 +10,9 @@ public class File_System {
 
     
     public static void main(String[] args) {
-        ArrayList<Estructura> rutaActual;
+        int idArchivos = 1;
+        ArrayList<Directorio> rutaActual;
+        rutaActual = new ArrayList<>();
         Disco memoria;
         System.out.println("File System");
         System.out.println("Use el comando \"crt\"");
@@ -24,7 +27,25 @@ public class File_System {
             while(true){
                 String comando = reader.next().toLowerCase();
                 switch (comando){
-                    case "fle": ;
+                    case "fle":
+                        
+                        System.out.println("Ingrese el nombre el archivo:");
+                        String nombre = reader.next();
+                        System.out.println("Ingrese la extension del archivo:");
+                        String tipo = reader.next();
+                        System.out.println("Ingrese el contenido:");
+                        String contenido = reader.next();
+                        
+                        
+                        int posicion = rutaActual.size();
+                        Archivo nuevo = new Archivo(nombre,idArchivos,tipo,contenido,new Date());
+                        rutaActual.get(posicion-1).addArchivo(nuevo);
+                        idArchivos++;
+                        nuevo.getTamaño();
+                        
+                        
+                            
+                        ;
                     case "mkdir": ;
                     case "chdir": ; 
                     case "ldir": ;

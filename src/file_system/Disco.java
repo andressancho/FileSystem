@@ -15,14 +15,14 @@ public class Disco {
     private String root;
     private int cantidad;
     private int size;
-    private int[] espacios;
+    private int[][] espacios;
     private ArrayList<Estructura> estructuras;
 
     public Disco(String root, int cantidad, int tamaño) {
         this.root = root;
         this.cantidad = cantidad;
         this.size = tamaño;
-        this.espacios = new int[cantidad];
+        this.espacios = new int[cantidad][tamaño];
     }
 
     public String getRoot() {
@@ -50,14 +50,7 @@ public class Disco {
         this.size = tamaño;
     }
 
-    public int[] getEspacios() {
-        return espacios;
-    }
-
-    public void setEspacios(int[] espacios) {
-        this.espacios = espacios;
-    }
-    
+  
     
     
 }
