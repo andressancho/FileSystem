@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package file_system;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
 /**
@@ -137,13 +140,17 @@ public class Disco {
         }
     }
     
-    public void ImprimirMemoria(){
+    public void ImprimirMemoria() throws FileNotFoundException, UnsupportedEncodingException{
+        PrintWriter writer = new PrintWriter("memoria.txt", "UTF-8");
+
         for (int x = 0; x < espacios.length;x++) {
             for(int y  = 0; y < espacios[x].length; y++){
-                System.out.print(espacios[x][y]);
+                writer.print(espacios[x][y]);
             }
-            System.out.println("");
+            writer.println("");
         }
+        
+        writer.close();
        
     }
 

@@ -22,20 +22,15 @@ public class File_System {
     public static void main(String[] args) throws IOException {
         int idArchivos = 1;
         rutaActual= new ArrayList();
-        Directorio folder= new Directorio("nuevo");
+        Directorio folder= new Directorio("TEC");
         Directorio d=new Directorio("Reque");
         d.getLista().add(new Archivo("Examen.doc",1,"doc","",new Date()));
-        folder.getLista().add(d);
         folder.getLista().add(new Directorio("Sistemas Operativos"));
         folder.getLista().add(new Directorio("Aseguramiento"));
         folder.getLista().add(new Directorio("Redes"));
 
-        folder.getLista().add(new Archivo("Asignacion 1.py",1,"py","",null));
-        folder.getLista().add(new Archivo("Asignacion 2.py",1,"py","",null));
-        folder.getLista().add(new Archivo("Asignacion 3.py",1,"py","hola",null));
         
 
-        rutaActual.add(folder);
         System.out.println("File System");
         System.out.println("Use el comando \"crt\"");
         Scanner reader = new Scanner(System.in);
@@ -48,6 +43,7 @@ public class File_System {
             memoria = new Disco("C",cant,tam);
             memoria.getEstructuras().add(folder);
             imprimirRuta();
+            memoria.ImprimirMemoria();
             while(true){
                 String comando = reader.next().toLowerCase();
                 switch (comando){
@@ -91,8 +87,9 @@ public class File_System {
                             memoria.addArchivo(nuevoA);
                             else
                             rutaActual.get(posicion-1).addArchivo(nuevoA);
-                            System.out.println("Archivo creado");
+                            
                             memoria.ImprimirMemoria();
+                            System.out.println("Archivo creado");
                         }
                         else{
                             System.out.println("no hay espacio suficiente");
@@ -105,8 +102,10 @@ public class File_System {
                         
                             
                     case "mkdir":
+                        reader1 = new BufferedReader(new InputStreamReader(System.in));
                         System.out.println("Ingrese el nombre del directorio:");
-                        String nombreD = reader.next();
+           
+                        String nombreD = reader1.readLine();
                         posicion = rutaActual.size();
                         Directorio nuevoD = new Directorio(nombreD);
                         if (posicion == 0)
@@ -156,6 +155,7 @@ public class File_System {
                         System.out.println("Ingrese el nuevo contenido:");
                         String cont = reader1.readLine();
                         modifyFile(nombre_archivo, cont);
+                        memoria.ImprimirMemoria();
 
                         break;
 
@@ -179,10 +179,12 @@ public class File_System {
                         System.out.println("Ingrese el nombre del archivo:");
                         String nombre = reader1.readLine();
                         ppt(nombre); 
+                        break;
                     case "tree":
                         tabs=0;
                         tree(memoria.getEstructuras());
                         imprimirRuta();
+                        break;
                     case "find":
                         ruta = "C:/";
                         rutas = new ArrayList();
@@ -258,6 +260,7 @@ public class File_System {
             memoria.liberarEspacios(a.getEnlaces());
             if(memoria.EspaciosDisponibles(contenido.length())){
                 a.setContenido(contenido);
+                a.setFecha_Ultima_Modificacion(new Date());
                 a.setEnlaces(memoria.llenarEspacios(a.getID(), contenido.length()));
                 System.out.println("Archivo modificado con exito");
                 
@@ -331,16 +334,47 @@ public class File_System {
                     }
                 }
             }
-            actual.remove(temporal);
+            
             
             if(!existe_archivo){
                 System.out.println("No existe un archivo con ese nombre");
             }
             else{
+                
+                actual.remove(temporal);
+                
+                if(temporal instanceof Archivo){
+                    memoria.liberarEspacios(((Archivo) temporal).getEnlaces());
+                }
+                else{
+                    Directorio d= (Directorio)temporal;
+                    for(Estructura e: d.getLista()){
+                        if(e instanceof Archivo){
+                            memoria.liberarEspacios(((Archivo) e).getEnlaces());
+                        }
+                        else{
+                            
+                            eliminar((Directorio)e);
+                        }
+                    }
+                }
+                
                 System.out.println("Archivo eliminado");
             }
             imprimirRuta();
         }
+    
+    public static void eliminar(Directorio directorio){
+        for(Estructura e: directorio.getLista()){
+            if(e instanceof Archivo){
+                memoria.liberarEspacios(((Archivo) e).getEnlaces());
+            }
+            else{ 
+                Directorio d=(Directorio)e;
+                eliminar(d);
+            }
+        }
+    }
 
     public static void ppt(String nombre){
         ArrayList<Estructura> actual;
