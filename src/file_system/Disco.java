@@ -88,6 +88,50 @@ public class Disco {
         return estructuras;
     }
     
+    public boolean EspaciosDisponibles(int size){
+        int necesarios = (int) Math.ceil(size / this.size);
+        int libres = 0;
+        for (int x = 0; x < espacios.length;x++) {
+            if(espacios[x][1] == 0)
+                libres++;
+            if(libres == necesarios)
+                return true;
+	}
+        return false;
+    }
+    public ArrayList<Integer> llenarEspacios(int ID, int size){
+        int necesarios = (int) Math.ceil(size / this.size);
+        ArrayList<Integer> listaEnlaces;
+        listaEnlaces = new ArrayList<>();
+        int usados = 0;
+        for (int x = 0; x < espacios.length;x++) {
+            if(espacios[x][1] == 0){
+                usados++;
+                for(int y  = 0; y < espacios[x].length; y++){
+                    espacios[x][y] = ID;
+                    listaEnlaces.add(x);
+                }
+                
+                
+            }
+            if (usados == necesarios)
+                return listaEnlaces;
+        
+	}
+        return null;
+        
+    }
+    
+    public void liberarEspacios(ArrayList<Integer> lista){
+        for (Integer i :lista){
+            for (int x = 0; x < espacios.length;x++) {
+                for(int y  = 0; y < espacios[x].length; y++){
+                    espacios[x][y] = 0;
+                }
+            }
+        }
+    }
+    
     
 
   
