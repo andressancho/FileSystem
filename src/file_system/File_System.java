@@ -24,7 +24,7 @@ public class File_System {
         rutaActual= new ArrayList();
         Directorio folder= new Directorio("nuevo");
         Directorio d=new Directorio("Reque");
-        d.getLista().add(new Archivo("Asignacion 1.py",1,"py","",new Date()));
+        d.getLista().add(new Archivo("Examen.doc",1,"doc","",new Date()));
         folder.getLista().add(d);
         folder.getLista().add(new Directorio("Sistemas Operativos"));
         folder.getLista().add(new Directorio("Aseguramiento"));
@@ -364,13 +364,21 @@ public class File_System {
        
     }
     
-     public static void find(String nombre, ArrayList<Estructura> estructuras){
+    public static void find(String nombre, ArrayList<Estructura> estructuras){
         for(Estructura e:estructuras){
-            //System.out.println(ruta + e.nombre + "/");
+            String first = nombre.substring(0, 1);
+            if(first.equals("*")){
+               if(e instanceof Archivo){
+                    Archivo a = (Archivo)e;
+                    if(nombre.substring(2).equals(a.getTipo())){
+                        System.out.println("Archivo:" + a.getNombre());
+                        find(a.getNombre(),estructuras);
+                    }
+                }
+            }
             
             if(e.nombre.equals(nombre)){
                 rutas.add(ruta);
-                //System.out.println(ruta);
             }
             if(e instanceof Directorio){
                 String temp = ruta;
@@ -382,5 +390,4 @@ public class File_System {
         }
       
     }
-
 }
