@@ -15,13 +15,13 @@ public class Directorio extends Estructura {
         lista = new ArrayList<Estructura>();
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+//    public String getNombre() {
+//        return nombre;
+//    }
+//
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
     
     public void addArchivo(Archivo a){
         this.lista.add(a);
@@ -31,5 +31,18 @@ public class Directorio extends Estructura {
         this.lista.add(d);
     }
     
-    
+    public boolean inList(String nombre){
+        for(Estructura e: lista){
+            if(e.getNombre().equals(nombre))
+                return true;
+        }
+        return false;
+    }
+    public Estructura getDir(String nombre){
+        for(Estructura e: lista){
+            if(e.getNombre().equals(nombre))
+                return e;
+        }
+        return null;
+    }
 }

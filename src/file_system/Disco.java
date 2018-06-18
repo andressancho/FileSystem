@@ -23,6 +23,7 @@ public class Disco {
         this.cantidad = cantidad;
         this.size = tamaño;
         this.espacios = new int[cantidad][tamaño];
+        this.estructuras = new ArrayList<>();
     }
 
     public String getRoot() {
@@ -56,7 +57,32 @@ public class Disco {
 
     public void setEspacios(int[][] espacios) {
         this.espacios = espacios;
+    }  
+    
+    public void addArchivo(Archivo a){
+        this.estructuras.add(a);
     }
+    
+    public void addDirectorio(Directorio d){
+        this.estructuras.add(d);
+    }
+    
+    public boolean inList(String nombre){
+        for(Estructura e: estructuras){
+            if(e.getNombre().equals(nombre))
+                return true;
+        }
+        return false;
+    }
+    
+    public Estructura getDir(String nombre){
+        for(Estructura e: estructuras){
+            if(e.getNombre().equals(nombre))
+                return e;
+        }
+        return null;
+    }
+    
     
 
   
