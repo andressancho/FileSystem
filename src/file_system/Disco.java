@@ -102,8 +102,8 @@ public class Disco {
     }
     public ArrayList<Integer> llenarEspacios(int ID, int size){
         int necesarios = (int) Math.ceil((size/ (double)this.size));
-        
-        System.out.println(necesarios);
+        int bytes = 0;
+        System.out.println(size);
         if(necesarios == 0)
             necesarios = 1;
         ArrayList<Integer> listaEnlaces;
@@ -113,6 +113,9 @@ public class Disco {
             if(espacios[x][1] == 0){
                 usados++;
                 for(int y  = 0; y < espacios[x].length; y++){
+                    bytes++;
+                    if(bytes == size+1)
+                        break;
                     espacios[x][y] = ID;
                     listaEnlaces.add(x);
                 }
