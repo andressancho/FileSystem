@@ -61,23 +61,29 @@ public class File_System {
                         String contenido = reader.next();
                         //creación de Archivo
                         Archivo nuevoA = new Archivo(nombreA,idArchivos,tipo,contenido,new Date());
-                        
-                        
                         int posicion = rutaActual.size();
-                        if (posicion == 0)
+                        
+                        if(memoria.EspaciosDisponibles(nuevoA.getTamaño())){
+                            nuevoA.setEnlaces(memoria.llenarEspacios(nuevoA.getID(), nuevoA.getTamaño()));
+                            idArchivos++;
+                            if (posicion == 0)
                             memoria.addArchivo(nuevoA);
-                        else
+                            else
                             rutaActual.get(posicion-1).addArchivo(nuevoA);
+                            System.out.println("Archivo creado");
+                        }
+                        else{
+                            System.out.println("no hay espacio suficiente");
+                            
+                        }
                         
                         
-                        int tamNuevo = nuevoA.getTamaño();
-                        
-                        // falta manejo de memoria
                         
                         
                         
-                        idArchivos++;
-                        System.out.println("Archivo creado");
+                        
+                        
+                        
                         imprimirRuta();
                         break;
                         

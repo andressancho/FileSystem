@@ -1,8 +1,9 @@
 
 package file_system;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -18,6 +19,7 @@ public class Archivo extends Estructura{
     private int tamaño;
     private Date fecha_creacion;
     private Date fecha_Ultima_Modificacion;
+    private ArrayList<Integer> enlaces;
     
     public Archivo(String nombre, int ID, String tipo,  String contenido, Date fecha_creacion) {
         super.nombre = nombre;
@@ -27,6 +29,7 @@ public class Archivo extends Estructura{
         this.tamaño = contenido.length();
         this.fecha_creacion = fecha_creacion;
         this.fecha_Ultima_Modificacion = fecha_creacion;
+        this.enlaces = new ArrayList<>();
     }
 
 //    public String getNombre() {
@@ -77,6 +80,16 @@ public class Archivo extends Estructura{
     public void setContenido(String contenido) {
         this.contenido = contenido;
     }
+
+    public ArrayList<Integer> getEnlaces() {
+        return enlaces;
+    }
+
+    public void setEnlaces(ArrayList<Integer> enlaces) {
+        this.enlaces = enlaces;
+    }
+    
+    
     
     
     
