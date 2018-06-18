@@ -101,6 +101,11 @@ public class File_System {
                         System.out.println("Ingrese el nombre del directorio que quiere abrir:");
                         String nombreQ = reader.next();
                         posicion = rutaActual.size();
+                        if("..".equals(nombreQ)){
+                            rutaActual.remove(posicion-1);
+                            imprimirRuta();
+                            break;
+                        }
                         if (posicion == 0){
                             if(memoria.inList(nombreQ)){
                                 Estructura e = memoria.getDir(nombreQ);
