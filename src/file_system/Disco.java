@@ -4,7 +4,6 @@
  * and open the template in the editor.
  */
 package file_system;
-
 import java.util.ArrayList;
 
 /**
@@ -102,7 +101,9 @@ public class Disco {
         return false;
     }
     public ArrayList<Integer> llenarEspacios(int ID, int size){
-        int necesarios = (int) Math.ceil(size / this.size);
+        int necesarios = (int) Math.ceil((size/ (double)this.size));
+        
+        System.out.println(necesarios);
         if(necesarios == 0)
             necesarios = 1;
         ArrayList<Integer> listaEnlaces;
@@ -136,7 +137,15 @@ public class Disco {
         }
     }
     
-    
+    public void ImprimirMemoria(){
+        for (int x = 0; x < espacios.length;x++) {
+            for(int y  = 0; y < espacios[x].length; y++){
+                System.out.print(espacios[x][y]);
+            }
+            System.out.println("");
+        }
+       
+    }
 
   
     

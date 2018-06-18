@@ -55,16 +55,36 @@ public class File_System {
 
                     case "fle":
                         //ingreso de datos
+                        int posicion = rutaActual.size();
                         BufferedReader readerF = new BufferedReader(new InputStreamReader(System.in));
                         System.out.println("Ingrese el nombre del archivo:");
                         String nombreA = reader.next();
+                        if(posicion == 0){
+                            if(memoria.inList(nombreA)){
+                                System.out.println("Ya existe un archivo con ese nombre");
+                                imprimirRuta();
+                                break;
+                            }
+                        }
+                        else{
+                            if(rutaActual.get(posicion -1).inList(nombreA)){
+                                System.out.println("Ya existe un archivo con ese nombre");
+                                imprimirRuta();
+                                break;
+                            }
+                        }
+                        
                         System.out.println("Ingrese la extension del archivo:");
                         String tipo = reader.next();
                         System.out.println("Ingrese el contenido:");
                         String contenido = readerF.readLine();
                         //creación de Archivo
+                        
+                                
+                                
+                        
                         Archivo nuevoA = new Archivo(nombreA,idArchivos,tipo,contenido,new Date());
-                        int posicion = rutaActual.size();
+                        
                         if(memoria.EspaciosDisponibles(nuevoA.getTamaño())){
                             nuevoA.setEnlaces(memoria.llenarEspacios(nuevoA.getID(), nuevoA.getTamaño()));
                             idArchivos++;
@@ -73,6 +93,7 @@ public class File_System {
                             else
                             rutaActual.get(posicion-1).addArchivo(nuevoA);
                             System.out.println("Archivo creado");
+                            memoria.ImprimirMemoria();
                         }
                         else{
                             System.out.println("no hay espacio suficiente");
