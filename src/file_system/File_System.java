@@ -361,13 +361,14 @@ public class File_System {
      public static void find(String nombre, ArrayList<Estructura> estructuras){
         for(Estructura e:estructuras){
             //System.out.println(ruta + e.nombre + "/");
-            ruta += e.nombre + "/";
+            
             if(e.nombre.equals(nombre)){
                 rutas.add(ruta);
                 //System.out.println(ruta);
             }
             if(e instanceof Directorio){
                 String temp = ruta;
+                ruta += e.nombre + "/";
                 find(nombre,((Directorio) e).getLista());
                 ruta = temp;
             }
