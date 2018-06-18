@@ -91,6 +91,7 @@ public class File_System {
                             else
                             rutaActual.get(posicion-1).addArchivo(nuevoA);
                             System.out.println("Archivo creado");
+                            memoria.ImprimirMemoria();
                         }
                         else{
                             System.out.println("no hay espacio suficiente");
