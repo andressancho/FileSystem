@@ -15,6 +15,7 @@ public class Directorio extends Estructura {
         lista = new ArrayList<Estructura>();
     }
 
+
     public ArrayList<Estructura> getLista() {
         return lista;
     }
@@ -22,7 +23,23 @@ public class Directorio extends Estructura {
     public void setLista(ArrayList<Estructura> lista) {
         this.lista = lista;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     
+    public void addArchivo(Archivo a){
+        this.lista.add(a);
+    }
+    
+    public void addDirectorio(Directorio d){
+        this.lista.add(d);
+    }
+
     
     
 }

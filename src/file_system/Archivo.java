@@ -19,14 +19,14 @@ public class Archivo extends Estructura{
     private Date fecha_creacion;
     private Date fecha_Ultima_Modificacion;
     
-    public Archivo(String nombre, int ID, String tipo, int tamaño, String contenido, Date fecha_creacion, Date fecha_Ultima_Modificacion) {
+    public Archivo(String nombre, int ID, String tipo,  String contenido, Date fecha_creacion) {
         super.nombre = nombre;
         this.ID = ID;
         this.tipo = tipo;
         this.contenido = contenido;
-        this.tamaño = tamaño;
+        this.tamaño = contenido.length();
         this.fecha_creacion = fecha_creacion;
-        this.fecha_Ultima_Modificacion = fecha_Ultima_Modificacion;
+        this.fecha_Ultima_Modificacion = fecha_creacion;
     }
 
     public String getNombre() {

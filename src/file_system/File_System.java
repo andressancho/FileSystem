@@ -15,26 +15,26 @@ public class File_System {
         static Disco memoria;
         static int tabs;
 
-    
+
+
     public static void main(String[] args) throws IOException {
-        
+        int idArchivos = 1;
         rutaActual= new ArrayList();
         Directorio folder= new Directorio("nuevo");
         Directorio d=new Directorio("Reque");
-        d.getLista().add(new Archivo("examen.py",1,"py",200,"",new Date(),new Date()));
+        d.getLista().add(new Archivo("examen.py",1,"py","",new Date()));
         folder.getLista().add(d);
         folder.getLista().add(new Directorio("Sistemas Operativos"));
         folder.getLista().add(new Directorio("Aseguramiento"));
         folder.getLista().add(new Directorio("Redes"));
 
-        folder.getLista().add(new Archivo("Asignacion 1.py",1,"py",200,"",null,null));
-        folder.getLista().add(new Archivo("Asignacion 2.py",1,"py",200,"",null,null));
-        folder.getLista().add(new Archivo("Asignacion 3.py",1,"py",200,"hola",null,null));
+        folder.getLista().add(new Archivo("Asignacion 1.py",1,"py","",null));
+        folder.getLista().add(new Archivo("Asignacion 2.py",1,"py","",null));
+        folder.getLista().add(new Archivo("Asignacion 3.py",1,"py","hola",null));
         
 
         rutaActual.add(folder);
-        
-        
+        Disco memoria;
         System.out.println("File System");
         System.out.println("Use el comando \"crt\"");
         Scanner reader = new Scanner(System.in);
@@ -50,8 +50,44 @@ public class File_System {
             while(true){
                 String comando = reader.next().toLowerCase();
                 switch (comando){
-                    case "fle": ;
-                    case "mkdir": ;
+
+                    case "fle":
+                        //ingreso de datos
+                        System.out.println("Ingrese el nombre del archivo:");
+                        String nombreA = reader.next();
+                        System.out.println("Ingrese la extension del archivo:");
+                        String tipo = reader.next();
+                        System.out.println("Ingrese el contenido:");
+                        String contenido = reader.next();
+                        
+                        //creación de Archivo
+                        int posicion = rutaActual.size();
+                        Archivo nuevoA = new Archivo(nombreA,idArchivos,tipo,contenido,new Date());
+                        
+                        
+                        int tamNuevo = nuevoA.getTamaño();
+                        
+                        // falta manejo de memoria
+                        
+                        
+                        rutaActual.get(posicion-1).addArchivo(nuevoA);
+                        idArchivos++;
+                        System.out.println("Archivo creado");
+                        imprimirRuta();
+                        break;
+                        
+                        
+                            
+                    case "mkdir":
+                        System.out.println("Ingrese el nombre del directorio:");
+                        String nombreD = reader.next();
+                        posicion = rutaActual.size();
+                        Directorio nuevoD = new Directorio(nombreD);
+                        rutaActual.get(posicion-1).addDirectorio(nuevoD);
+                        
+                        System.out.println("Directorio creado");
+                        imprimirRuta();
+                        break;
                     case "chdir": ; 
                     case "ldir":
                         listDir();
@@ -62,8 +98,8 @@ public class File_System {
                         String nombre_archivo = reader1.readLine();
                         reader = new Scanner(System.in);
                         System.out.println("Ingrese el nuevo contenido:");
-                        String contenido = reader1.readLine();
-                        modifyFile(nombre_archivo, contenido);
+                        String cont = reader1.readLine();
+                        modifyFile(nombre_archivo, cont);
 
                         break;
 
@@ -141,6 +177,9 @@ public class File_System {
                     existe_archivo = true;
                     Archivo a = (Archivo) e;
                     a.setContenido(contenido);
+
+                    
+                         
                 }
             }
            
@@ -154,6 +193,7 @@ public class File_System {
         }
         imprimirRuta();
     }
+
 
     
     public static void viewFile(String nombre){
