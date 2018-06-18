@@ -55,16 +55,16 @@ public class File_System {
 
                     case "fle":
                         //ingreso de datos
+                        BufferedReader readerF = new BufferedReader(new InputStreamReader(System.in));
                         System.out.println("Ingrese el nombre del archivo:");
                         String nombreA = reader.next();
                         System.out.println("Ingrese la extension del archivo:");
                         String tipo = reader.next();
                         System.out.println("Ingrese el contenido:");
-                        String contenido = reader.next();
+                        String contenido = readerF.readLine();
                         //creación de Archivo
                         Archivo nuevoA = new Archivo(nombreA,idArchivos,tipo,contenido,new Date());
                         int posicion = rutaActual.size();
-                        
                         if(memoria.EspaciosDisponibles(nuevoA.getTamaño())){
                             nuevoA.setEnlaces(memoria.llenarEspacios(nuevoA.getID(), nuevoA.getTamaño()));
                             idArchivos++;

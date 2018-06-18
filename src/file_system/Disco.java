@@ -90,6 +90,8 @@ public class Disco {
     
     public boolean EspaciosDisponibles(int size){
         int necesarios = (int) Math.ceil(size / this.size);
+        if(necesarios == 0)
+            necesarios = 1;
         int libres = 0;
         for (int x = 0; x < espacios.length;x++) {
             if(espacios[x][1] == 0)
@@ -101,6 +103,8 @@ public class Disco {
     }
     public ArrayList<Integer> llenarEspacios(int ID, int size){
         int necesarios = (int) Math.ceil(size / this.size);
+        if(necesarios == 0)
+            necesarios = 1;
         ArrayList<Integer> listaEnlaces;
         listaEnlaces = new ArrayList<>();
         int usados = 0;
