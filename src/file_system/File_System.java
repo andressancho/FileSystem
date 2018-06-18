@@ -59,10 +59,15 @@ public class File_System {
                         String tipo = reader.next();
                         System.out.println("Ingrese el contenido:");
                         String contenido = reader.next();
-                        
                         //creación de Archivo
-                        int posicion = rutaActual.size();
                         Archivo nuevoA = new Archivo(nombreA,idArchivos,tipo,contenido,new Date());
+                        
+                        
+                        int posicion = rutaActual.size();
+                        if (posicion == 0)
+                            memoria.addArchivo(nuevoA);
+                        else
+                            rutaActual.get(posicion-1).addArchivo(nuevoA);
                         
                         
                         int tamNuevo = nuevoA.getTamaño();
@@ -70,7 +75,7 @@ public class File_System {
                         // falta manejo de memoria
                         
                         
-                        rutaActual.get(posicion-1).addArchivo(nuevoA);
+                        
                         idArchivos++;
                         System.out.println("Archivo creado");
                         imprimirRuta();
@@ -83,12 +88,37 @@ public class File_System {
                         String nombreD = reader.next();
                         posicion = rutaActual.size();
                         Directorio nuevoD = new Directorio(nombreD);
-                        rutaActual.get(posicion-1).addDirectorio(nuevoD);
+                        if (posicion == 0)
+                            memoria.addDirectorio(nuevoD);
+                        else
+                            rutaActual.get(posicion-1).addDirectorio(nuevoD);
                         
                         System.out.println("Directorio creado");
+
                         imprimirRuta();
                         break;
-                    case "chdir": ; 
+                    case "chdir":
+                        System.out.println("Ingrese el nombre del directorio que quiere abrir:");
+                        String nombreQ = reader.next();
+                        posicion = rutaActual.size();
+                        if (posicion == 0){
+                            if(memoria.inList(nombreQ)){
+                                Estructura e = memoria.getDir(nombreQ);
+                                rutaActual.add((Directorio)e);
+                            }
+                            else
+                                System.out.println("Directorio no exite");
+                        }
+                        else{
+                            if(rutaActual.get(posicion-1).inList(nombreQ)){
+                                Estructura e = rutaActual.get(posicion-1).getDir(nombreQ);
+                                rutaActual.add((Directorio)e);
+                            }
+                            else
+                                System.out.println("Directorio no exite");
+                        }
+                        imprimirRuta();
+                        break; 
                     case "ldir":
                         listDir();
                         break;
@@ -178,8 +208,6 @@ public class File_System {
                     Archivo a = (Archivo) e;
                     a.setContenido(contenido);
 
-                    
-                         
                 }
             }
            

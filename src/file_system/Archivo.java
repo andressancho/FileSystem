@@ -29,13 +29,13 @@ public class Archivo extends Estructura{
         this.fecha_Ultima_Modificacion = fecha_creacion;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+//    public String getNombre() {
+//        return nombre;
+//    }
+//
+//    public void setNombre(String nombre) {
+//        this.nombre = nombre;
+//    }
     
     public int getID() {
         return ID;
