@@ -24,7 +24,7 @@ public class File_System {
         rutaActual= new ArrayList();
         Directorio folder= new Directorio("nuevo");
         Directorio d=new Directorio("Reque");
-        d.getLista().add(new Archivo("examen.py",1,"py","",new Date()));
+        d.getLista().add(new Archivo("Asignacion 1.py",1,"py","",new Date()));
         folder.getLista().add(d);
         folder.getLista().add(new Directorio("Sistemas Operativos"));
         folder.getLista().add(new Directorio("Aseguramiento"));
@@ -78,14 +78,7 @@ public class File_System {
                             System.out.println("no hay espacio suficiente");
                             
                         }
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                     
                         imprimirRuta();
                         break;
                         
@@ -171,6 +164,8 @@ public class File_System {
                         tree(memoria.getEstructuras());
                         imprimirRuta();
                     case "find":
+                        ruta = "C:/";
+                        rutas = new ArrayList();
                         reader1 = new BufferedReader(new InputStreamReader(System.in));
                         System.out.println("Ingrese el nombre del archivo o directorio:");
                         String nombre_archivo_4 = reader1.readLine();
@@ -178,7 +173,7 @@ public class File_System {
                         for(String s: rutas){
                             System.out.println(s);
                         }
-                        
+                        imprimirRuta();
                         break;
 
                 }
@@ -385,10 +380,7 @@ public class File_System {
             }
             
         }
-        
-        //ruta = "C:/";
-        
-        //imprimirRuta();
+      
     }
 
 }
