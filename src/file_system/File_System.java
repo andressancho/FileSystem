@@ -36,7 +36,6 @@ public class File_System {
         
 
         rutaActual.add(folder);
-        Disco memoria;
         System.out.println("File System");
         System.out.println("Use el comando \"crt\"");
         Scanner reader = new Scanner(System.in);
@@ -239,13 +238,13 @@ public class File_System {
         else{
             actual= memoria.getEstructuras();
         }
-        
+        Archivo a=null;
         for(Estructura e: actual){
             if(e instanceof Archivo){
                if(e.nombre.equals(nombre)){
                     existe_archivo = true;
-                    Archivo a = (Archivo) e;
-                    a.setContenido(contenido);
+                    a = (Archivo) e;
+                    
 
                 }
             }
@@ -256,7 +255,17 @@ public class File_System {
             System.out.println("No existe un archivo con ese nombre");
         }
         else{
-            System.out.println("Archivo modificado con exito");
+            memoria.liberarEspacios(a.getEnlaces());
+            if(memoria.EspaciosDisponibles(contenido.length())){
+                a.setContenido(contenido);
+                a.setEnlaces(memoria.llenarEspacios(a.getID(), contenido.length()));
+                System.out.println("Archivo modificado con exito");
+                
+            }
+            else{
+                System.out.println("No se encontró espacio");
+            }
+            
         }
         imprimirRuta();
     }
