@@ -14,6 +14,8 @@ public class File_System {
         static ArrayList<Directorio> rutaActual;
         static Disco memoria;
         static int tabs;
+        static String ruta = "C:/";
+        static ArrayList<String> rutas = new ArrayList();
 
 
 
@@ -157,6 +159,16 @@ public class File_System {
                         tabs=0;
                         tree(memoria.getEstructuras());
                         imprimirRuta();
+                    case "find":
+                        reader1 = new BufferedReader(new InputStreamReader(System.in));
+                        System.out.println("Ingrese el nombre del archivo o directorio:");
+                        String nombre_archivo_4 = reader1.readLine();
+                        find(nombre_archivo_4,memoria.getEstructuras()); 
+                        for(String s: rutas){
+                            System.out.println(s);
+                        }
+                        
+                        break;
 
                 }
             }
@@ -345,4 +357,26 @@ public class File_System {
         
        
     }
+    
+     public static void find(String nombre, ArrayList<Estructura> estructuras){
+        for(Estructura e:estructuras){
+            //System.out.println(ruta + e.nombre + "/");
+            ruta += e.nombre + "/";
+            if(e.nombre.equals(nombre)){
+                rutas.add(ruta);
+                //System.out.println(ruta);
+            }
+            if(e instanceof Directorio){
+                String temp = ruta;
+                find(nombre,((Directorio) e).getLista());
+                ruta = temp;
+            }
+            
+        }
+        
+        //ruta = "C:/";
+        
+        //imprimirRuta();
+    }
+
 }
